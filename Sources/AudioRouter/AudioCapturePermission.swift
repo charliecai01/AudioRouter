@@ -1,7 +1,7 @@
 import Foundation
 import OSLog
 
-private let permissionLog = Logger(subsystem: "dev.raidr.audiorouter", category: "Permission")
+private let permissionLog = Logger(subsystem: "io.github.charliecai01.audiorouter", category: "Permission")
 
 /// Triggers the native "Screen & System Audio Recording" permission dialog on first launch.
 ///

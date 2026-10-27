@@ -1,7 +1,7 @@
 import ServiceManagement
 import OSLog
 
-private let launchAtLoginLog = Logger(subsystem: "dev.raidr.audiorouter", category: "LaunchAtLogin")
+private let launchAtLoginLog = Logger(subsystem: "io.github.charliecai01.audiorouter", category: "LaunchAtLogin")
 
 /// Registers/unregisters AudioRouter as a login item using the modern
 /// ServiceManagement API (macOS 13+) — no separate helper bundle or extra

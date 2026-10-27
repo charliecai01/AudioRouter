@@ -1,7 +1,7 @@
 import Foundation
 import OSLog
 
-private let systemAudioLog = Logger(subsystem: "dev.raidr.audiorouter", category: "SystemAudio")
+private let systemAudioLog = Logger(subsystem: "io.github.charliecai01.audiorouter", category: "SystemAudio")
 
 /// Controls every connected output device's volume/mute directly via Core Audio
 /// (so each one is independently adjustable, not just whichever is currently

@@ -1,6 +1,6 @@
 name: AudioRouter
 options:
-  bundleIdPrefix: dev.raidr
+  bundleIdPrefix: io.github.charliecai01
   deploymentTarget:
     macOS: "14.4"
   developmentLanguage: en
@@ -26,7 +26,7 @@ targets:
       - path: Sources/AudioRouter
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: dev.raidr.audiorouter
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.charliecai01.audiorouter
         PRODUCT_NAME: AudioRouter
         INFOPLIST_FILE: Sources/AudioRouter/Info.plist
         MARKETING_VERSION: "0.2.1"

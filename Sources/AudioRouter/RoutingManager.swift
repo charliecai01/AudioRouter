@@ -11,7 +11,7 @@ final class RoutingManager: ObservableObject {
     private var preMuteGains: [String: Float] = [:]
     private var levelTimer: Timer?
     private let defaults = UserDefaults.standard
-    private let assignmentsKey = "dev.raidr.audiorouter.assignments"
+    private let assignmentsKey = "io.github.charliecai01.audiorouter.assignments"
 
     private var assignments: [String: String] {
         get { defaults.dictionary(forKey: assignmentsKey) as? [String: String] ?? [:] }

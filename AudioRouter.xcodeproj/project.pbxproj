@@ -181,7 +181,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.raidr.audiorouter;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.charliecai01.audiorouter;
 				PRODUCT_NAME = AudioRouter;
 				SDKROOT = macosx;
 			};
@@ -327,7 +327,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 0.2.1;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.raidr.audiorouter;
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.charliecai01.audiorouter;
 				PRODUCT_NAME = AudioRouter;
 				SDKROOT = macosx;
 			};

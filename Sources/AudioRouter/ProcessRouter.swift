@@ -2,7 +2,7 @@ import CoreAudio
 import AudioToolbox
 import OSLog
 
-private let routerLog = Logger(subsystem: "dev.raidr.audiorouter", category: "ProcessRouter")
+private let routerLog = Logger(subsystem: "io.github.charliecai01.audiorouter", category: "ProcessRouter")
 
 /// Captures one process's audio via a Core Audio Process Tap and plays it back
 /// on a chosen physical output device (with an adjustable gain), instead of the
@@ -22,7 +22,7 @@ final class ProcessRouter {
     private var tapID = AudioObjectID.unknown
     private var aggregateDeviceID = AudioObjectID.unknown
     private var deviceProcID: AudioDeviceIOProcID?
-    private let queue = DispatchQueue(label: "dev.raidr.audiorouter.ioproc", qos: .userInteractive)
+    private let queue = DispatchQueue(label: "io.github.charliecai01.audiorouter.ioproc", qos: .userInteractive)
 
     /// Linear gain (0...1.5-ish) applied to samples as they're copied through. Written from
     /// the main thread by the volume slider, read on the real-time audio thread; a plain Float
