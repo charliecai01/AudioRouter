@@ -4,3 +4,4 @@ xcuserdata/
 *.xcuserstate
 .claude/settings.local.json
 .vercel
+AudioRouter.xcodeproj/

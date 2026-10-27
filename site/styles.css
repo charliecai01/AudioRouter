@@ -421,7 +421,7 @@ section { position: relative; z-index: 2; }
 
 .real-shot-inner img {
   width: 100%;
-  max-width: 602px;
+  max-width: 476px;
   border-radius: 14px;
   border: 1px solid var(--panel-border);
   box-shadow: 0 30px 70px -25px rgba(0, 0, 0, 0.65);

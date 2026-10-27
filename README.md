@@ -6,7 +6,7 @@ same time. Free, open source, and doesn't send anything home.
 
 ![AudioRouter menu bar panel](docs/screenshot.png)
 
-**[Download the latest release →](https://audiorouter-app.vercel.app)**
+There's no prebuilt download yet. See [Building from source](#building-from-source).
 
 ## Why
 
@@ -18,11 +18,9 @@ output routing — for free, using Apple's own public APIs.
 
 - **Per-app output routing** — assign any app to any connected output device.
 - **Independent volume + live level meter per app.**
-- **System-wide controls** — default output device, output volume, and sound
-  effects volume, from the same menu.
+- **Output device controls** — pick the default output, and set or mute each
+  device's volume from the same menu.
 - **Lives in the menu bar** — no Dock icon, no extra windows.
-- **Signed with a Developer ID and notarized by Apple** — Gatekeeper accepts
-  it with no warnings.
 - **No telemetry, no accounts, no network access.**
 
 ## How it works
@@ -34,10 +32,10 @@ a private Aggregate Device + IOProc passthrough. No kernel extensions, no
 virtual audio drivers — just the same public API Apple introduced for this
 in Sonoma 14.4.
 
-Because Process Taps don't currently work reliably inside the App Sandbox,
-AudioRouter is distributed outside the Mac App Store, signed with a
-Developer ID and notarized — the same approach apps like Loopback and
-SoundSource use.
+Process Taps don't currently work reliably inside the App Sandbox, so
+AudioRouter can't go on the Mac App Store. `release.sh` signs release builds
+with a Developer ID and notarizes them instead (see [Releasing](#releasing)),
+the same way Loopback and SoundSource are distributed.
 
 ## Requirements
 
@@ -47,7 +45,7 @@ SoundSource use.
 ## Building from source
 
 ```bash
-git clone https://github.com/RaidrDev/AudioRouter.git
+git clone https://github.com/charliecai01/AudioRouter.git
 cd AudioRouter
 brew install xcodegen
 xcodegen generate
