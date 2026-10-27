@@ -3,15 +3,15 @@
 # ready-to-distribute signed .dmg. Requires:
 #   - The "Developer ID Application" certificate installed (see project.yml).
 #   - A stored notarytool credentials profile named "AudioRouter-notary"
-#     (xcrun notarytool store-credentials "AudioRouter-notary" --apple-id ... --team-id WV8SAHT65Z)
+#     (xcrun notarytool store-credentials "AudioRouter-notary" --apple-id ... --team-id 9272YGK74X)
 #
 # Usage: ./release.sh
 
 set -euo pipefail
 cd "$(dirname "$0")"
 
-TEAM_ID="WV8SAHT65Z"
-SIGNING_IDENTITY="Developer ID Application: Jose Sanchez Gonzalez ($TEAM_ID)"
+TEAM_ID="9272YGK74X"
+SIGNING_IDENTITY="Developer ID Application: Charlie Cai ($TEAM_ID)"
 NOTARY_PROFILE="AudioRouter-notary"
 BUILD_DIR="build"
 ARCHIVE_PATH="$BUILD_DIR/AudioRouter.xcarchive"
