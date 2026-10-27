@@ -26,8 +26,6 @@
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>LSUIElement</key>
 	<true/>
-	<key>NSAppleEventsUsageDescription</key>
-	<string>AudioRouter needs to send Apple Events to control the system's output, input, and sound effects volume.</string>
 	<key>NSAudioCaptureUsageDescription</key>
 	<string>AudioRouter needs to capture audio from other apps so it can redirect it to the output device you choose.</string>
 	<key>NSPrincipalClass</key>
