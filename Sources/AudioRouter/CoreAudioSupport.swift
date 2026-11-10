@@ -128,15 +128,6 @@ extension AudioObjectID {
         try? write(kAudioDevicePropertyMute, scope: kAudioDevicePropertyScopeOutput, element: kAudioObjectPropertyElementMain, value: UInt32(muted ? 1 : 0), context: "setOutputMuted")
     }
 
-    /// Whether this device has a settable volume at all (used to decide whether to
-    /// show a slider for it — some outputs, like certain HDMI displays, don't).
-    func hasSettableOutputVolume() -> Bool {
-        var address = AudioObjectPropertyAddress(mSelector: kAudioDevicePropertyVolumeScalar, mScope: kAudioDevicePropertyScopeOutput, mElement: kAudioObjectPropertyElementMain)
-        if AudioObjectHasProperty(self, &address) { return true }
-        address.mElement = 1
-        return AudioObjectHasProperty(self, &address)
-    }
-
     /// Number of output channels this device exposes (0 for input-only devices).
     func outputChannelCount() -> Int {
         var address = AudioObjectPropertyAddress(

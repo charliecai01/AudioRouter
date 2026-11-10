@@ -32,11 +32,6 @@ final class RoutingManager: ObservableObject {
         }
     }
 
-    func savedDeviceUID(for process: AudioProcess) -> String? {
-        guard let bundleID = process.bundleID else { return nil }
-        return assignments[bundleID]
-    }
-
     func route(process: AudioProcess, to device: OutputDevice) {
         let previousGain = gains[process.id] ?? 1.0
         stopRouting(id: process.id)
