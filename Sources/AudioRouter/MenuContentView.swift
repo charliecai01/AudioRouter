@@ -166,9 +166,15 @@ private struct OutputDeviceRow: View {
                 }
                 .buttonStyle(.plain)
 
-                FlatSlider(value: volumeBinding, range: 0...1)
-                    .disabled(isMuted)
-                    .opacity(isMuted ? 0.35 : 1)
+                HStack(spacing: 6) {
+                    StepVolumeBar(value: volumeBinding)
+                    HStack(spacing: 2) {
+                        stepButton("minus", delta: -1)
+                        stepButton("plus", delta: 1)
+                    }
+                }
+                .disabled(isMuted)
+                .opacity(isMuted ? 0.35 : 1)
             }
             .padding(.leading, 22)
         }
@@ -177,6 +183,25 @@ private struct OutputDeviceRow: View {
         .background(isHovering ? Color.white.opacity(0.05) : .clear)
         .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
         .onHover { isHovering = $0 }
+    }
+
+    /// Moves the volume one block (1/16) up or down, snapping to the nearest step
+    /// first so an in-between level lands on a whole block, like the volume keys.
+    private func stepButton(_ symbol: String, delta: Int) -> some View {
+        Button {
+            let steps = Float(StepVolumeBar.defaultSteps)
+            let current = (volumeBinding.wrappedValue * steps).rounded()
+            let next = min(max(current + Float(delta), 0), steps)
+            volumeBinding.wrappedValue = next / steps
+        } label: {
+            Image(systemName: symbol)
+                .font(.system(size: 9, weight: .semibold))
+                .foregroundStyle(.secondary)
+                .frame(width: 14, height: 14)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .help(delta > 0 ? "Volume Up" : "Volume Down")
     }
 }
 
@@ -189,54 +214,38 @@ private struct AppRow: View {
 
     private var currentDevice: OutputDevice? { routing.activeRoutes[process.id] }
     private var isMuted: Bool { (routing.gains[process.id] ?? 1) <= 0 }
-    private var gainBinding: Binding<Float> {
-        Binding(
-            get: { routing.gains[process.id] ?? 1.0 },
-            set: { routing.setGain($0, for: process.id) }
-        )
-    }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            HStack(spacing: 8) {
-                Image(nsImage: process.icon)
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+        HStack(spacing: 8) {
+            Image(nsImage: process.icon)
+                .resizable()
+                .frame(width: 20, height: 20)
+                .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
 
-                Text(process.name)
-                    .font(.system(size: 12))
-                    .lineLimit(1)
+            Text(process.name)
+                .font(.system(size: 12))
+                .lineLimit(1)
 
-                Spacer(minLength: 6)
-
-                deviceMenu
-            }
+            Spacer(minLength: 6)
 
             HStack(spacing: 7) {
+                LevelMeterView(level: routing.levels[process.id] ?? 0)
+
                 Button {
                     routing.toggleMute(for: process.id)
                 } label: {
                     Image(systemName: isMuted ? "speaker.slash.fill" : "speaker.wave.2.fill")
-                        .font(.system(size: 10))
+                        .font(.system(size: 11))
                         .foregroundStyle(isMuted ? Color.red : Color.secondary)
-                        .frame(width: 14)
+                        .frame(width: 16)
                 }
                 .buttonStyle(.plain)
-                .disabled(currentDevice == nil)
-
-                FlatSlider(value: gainBinding)
-                    .disabled(currentDevice == nil)
-
-                Text("\(Int(gainBinding.wrappedValue * 100))%")
-                    .font(.system(size: 10.5))
-                    .foregroundStyle(.secondary)
-                    .monospacedDigit()
-                    .frame(width: 30, alignment: .trailing)
-
-                LevelMeterView(level: routing.levels[process.id] ?? 0)
+                .help(isMuted ? "Unmute" : "Mute")
             }
+            .disabled(currentDevice == nil)
             .opacity(currentDevice == nil ? 0.35 : 1)
+
+            deviceMenu
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 6)
