@@ -24,6 +24,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         systemAudio.start()
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        // A fixed autosave name makes macOS remember where the icon was ⌘-dragged
+        // to, so relaunches don't drop it back at the far left (into a menu bar
+        // manager's hidden section).
+        statusItem.autosaveName = "AudioRouterStatusItem"
         if let button = statusItem.button {
             button.image = NSImage(named: "MenuBarIcon")
             button.image?.isTemplate = true
