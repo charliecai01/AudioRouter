@@ -149,7 +149,7 @@ private struct OutputDeviceRow: View {
 
                 Spacer(minLength: 6)
 
-                Text("\(Int(volumeBinding.wrappedValue * 100))%")
+                Text("\(Int((volumeBinding.wrappedValue * 100).rounded()))%")
                     .font(.system(size: 11))
                     .foregroundStyle(.secondary)
                     .monospacedDigit()
@@ -166,15 +166,9 @@ private struct OutputDeviceRow: View {
                 }
                 .buttonStyle(.plain)
 
-                HStack(spacing: 6) {
-                    StepVolumeBar(value: volumeBinding)
-                    HStack(spacing: 2) {
-                        stepButton("minus", delta: -1)
-                        stepButton("plus", delta: 1)
-                    }
-                }
-                .disabled(isMuted)
-                .opacity(isMuted ? 0.35 : 1)
+                StepVolumeBar(value: volumeBinding, maxValue: device.volumeCeiling)
+                    .disabled(isMuted)
+                    .opacity(isMuted ? 0.35 : 1)
             }
             .padding(.leading, 22)
         }
@@ -183,25 +177,6 @@ private struct OutputDeviceRow: View {
         .background(isHovering ? Color.white.opacity(0.05) : .clear)
         .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
         .onHover { isHovering = $0 }
-    }
-
-    /// Moves the volume one block (1/16) up or down, snapping to the nearest step
-    /// first so an in-between level lands on a whole block, like the volume keys.
-    private func stepButton(_ symbol: String, delta: Int) -> some View {
-        Button {
-            let steps = Float(StepVolumeBar.defaultSteps)
-            let current = (volumeBinding.wrappedValue * steps).rounded()
-            let next = min(max(current + Float(delta), 0), steps)
-            volumeBinding.wrappedValue = next / steps
-        } label: {
-            Image(systemName: symbol)
-                .font(.system(size: 9, weight: .semibold))
-                .foregroundStyle(.secondary)
-                .frame(width: 14, height: 14)
-                .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .help(delta > 0 ? "Volume Up" : "Volume Down")
     }
 }
 

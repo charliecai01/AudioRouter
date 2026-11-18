@@ -42,6 +42,12 @@ struct OutputDevice: Identifiable, Hashable {
         return ampStyleNames.contains(where: lowercased.contains)
     }
 
+    /// The volume a full bar stands for. The Woburn III is loud enough that its
+    /// bar tops out at 50%, so each of its steps is 10% instead of 20%.
+    var volumeCeiling: Float {
+        name.lowercased().contains("woburn") ? 0.5 : 1
+    }
+
     static func listAll() -> [OutputDevice] {
         guard let deviceIDs = try? SystemAudioObject.allDevices() else { return [] }
         return deviceIDs.compactMap { deviceID in
