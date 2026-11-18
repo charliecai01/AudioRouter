@@ -11,7 +11,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 TEAM_ID="9272YGK74X"
-SIGNING_IDENTITY="Developer ID Application: Charlie Cai ($TEAM_ID)"
+SIGNING_IDENTITY="Developer ID Application: Lin Cai ($TEAM_ID)"
 NOTARY_PROFILE="AudioRouter-notary"
 BUILD_DIR="build"
 ARCHIVE_PATH="$BUILD_DIR/AudioRouter.xcarchive"
