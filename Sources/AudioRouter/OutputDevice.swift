@@ -48,13 +48,18 @@ struct OutputDevice: Identifiable, Hashable {
         name.lowercased().contains("woburn") ? 0.5 : 1
     }
 
+    /// Outputs that never belong in the list. The LS32A70 is a monitor whose
+    /// HDMI audio has no speakers behind it.
+    private static let hiddenDeviceNames: Set<String> = ["LS32A70"]
+
     static func listAll() -> [OutputDevice] {
         guard let deviceIDs = try? SystemAudioObject.allDevices() else { return [] }
         return deviceIDs.compactMap { deviceID in
             guard deviceID.outputChannelCount() > 0,
                   let uid = deviceID.readString(kAudioDevicePropertyDeviceUID),
                   let name = deviceID.readString(kAudioObjectPropertyName),
-                  !name.hasPrefix("AudioRouter-")
+                  !name.hasPrefix("AudioRouter-"),
+                  !hiddenDeviceNames.contains(name)
             else { return nil }
             let transportType = (try? deviceID.read(kAudioDevicePropertyTransportType, as: UInt32(0), context: "transportType")) ?? 0
             return OutputDevice(objectID: deviceID, uid: uid, name: name, transportType: transportType)
